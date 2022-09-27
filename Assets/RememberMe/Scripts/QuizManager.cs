@@ -98,7 +98,6 @@ public class QuizManager : MonoBehaviour
         {
             currentTime = 0;
             SceneManager.LoadScene(sceneName: "LoseScene");
-            //UnityEditor.EditorApplication.isPlaying = false;
         }
 
         if(currentCorrectAnswer == 15 && Time.timeScale == 1.0)
@@ -106,9 +105,6 @@ public class QuizManager : MonoBehaviour
             Time.timeScale = 0f;
             SceneManager.LoadScene(sceneName: "WinScene");
         }
-
-       // Debug.Log(wrongAnswer);
-       // Debug.Log(executedTime);
 
         if(wrongAnswer == true)
         {
@@ -135,8 +131,6 @@ public class QuizManager : MonoBehaviour
     private void setQuestion()
     {
         currentAnswerIndex = 0;
-    //    currentAnswerIndex = UnityEngine.Random.Range(0, questionData.questions.Count);
-    //    questionData.questions.RemoveAt(currentAnswerIndex);
         selectedWordIndex.Clear();
 
         //questionImage.sprite = questionData.questions[currentQuestionIndex].questionImage;
@@ -217,27 +211,26 @@ public class QuizManager : MonoBehaviour
                     gameStatus = GameStatus.Next; 
                     score += 1;
                     currentCorrectAnswer += 1;
-                    //Debug.Log(currentCorrectAnswer);
                     scoreText.text = currentScore.ToString(score + " / 15");
                     if(currentQuestionIndex < questionData.questions.Count)
                     {
                         Invoke("setQuestion", 0.5f); //Panggil set Question waktunya 0.5
                     }
-                    else
+                 /*    else
                     {
                        // gameover.SetActive(true);
                     }
+                    */
                 }
                 else if(!correctAnswer)
                 {
                     Debug.Log("False");
                     wrongAnswer = true;
-                   // popUp.SetActive(true);
                     currentTime = currentTime - 2;
 
                     if(popUpCurrentTime == timeToWait)
                     {
-                        popUp.SetActive(false);
+                       // popUp.SetActive(false);
                         wrongAnswer = false;
                     }
                 
@@ -276,7 +269,7 @@ public class QuizManager : MonoBehaviour
         {
             clueIndex[i] = -999;
         }
-        
+
         countIndex = 0;
         countIndex2 = 0;
         popUpCurrentTime = 0.0f;
@@ -293,6 +286,11 @@ public class QuizManager : MonoBehaviour
 
             currentAnswerIndex--;
             answerWordArray[currentAnswerIndex].SetChar('_');
+        }
+
+        if(wrongAnswer == true)
+        {
+            wrongAnswer = false;
         }
     }
 
